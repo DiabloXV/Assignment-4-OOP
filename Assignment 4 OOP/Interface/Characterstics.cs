@@ -19,8 +19,21 @@ namespace Assignment_4_OOP.Interface
         public String? Name { get; set; }
 
 
-        public void Skill1();
+        public void UsePotion() 
+        {
+            Console.WriteLine("Your Health is restored");
+        }
 
-        public void skill2();
+        public void DodgeAttack()   
+        {
+            Console.WriteLine("Roll Over");
+        }
+
+
+        public void Mount();
+
+
+        void  SpecialMove();
+
     }
 }
