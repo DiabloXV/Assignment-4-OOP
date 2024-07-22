@@ -9,6 +9,36 @@ using Assignment_4_OOP.Interface;
 
 namespace Assignment_4_OOP
 {
+    public class Person : ICloneable, IComparable<Person>
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
+
+        public object Clone()
+        {
+            return new Person { Name = this.Name, Age = this.Age };
+        }
+
+        public int CompareTo(Person other)
+        {
+            if (other == null) return 1;
+
+            // First compare by Age
+            int ageComparison = this.Age.CompareTo(other.Age);
+            if (ageComparison != 0)
+            {
+                return ageComparison;
+            }
+
+            return this.Name.CompareTo(other.Name);
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}, Age: {Age}";
+        }
+    }
     internal class Program
     {
         static void Main(string[] args)
@@ -133,6 +163,46 @@ namespace Assignment_4_OOP
             {
                 Console.WriteLine(sb.ToString());
             }
+            #endregion
+
+
+            #region ICloneable and IComparable
+            List<Person> people = new List<Person>
+            {
+                new Person { Name = "Alice", Age = 30 },
+                new Person { Name = "Bob", Age = 25 },
+                new Person { Name = "Charlie", Age = 30 },
+            };
+
+            Console.WriteLine("Original list:");
+            foreach (var person in people)
+            {
+                Console.WriteLine(person);
+            }
+
+
+            people.Sort();
+
+            Console.WriteLine("\nSorted list:");
+            foreach (var person in people)
+            {
+                Console.WriteLine(person);
+            }
+
+            
+            Person originalPerson = new Person { Name = "David", Age = 40 };
+            Person clonedPerson = (Person)originalPerson.Clone();
+
+
+            clonedPerson.Name = "Eve";
+            clonedPerson.Age = 35;
+
+            
+            Console.WriteLine("\nOriginal Person:");
+            Console.WriteLine(originalPerson);
+
+            Console.WriteLine("\nCloned Person:");
+            Console.WriteLine(clonedPerson);
             #endregion
 
         }
